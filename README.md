@@ -1,9 +1,11 @@
-# microprofile-meeting-persistance
+# Part 2: Microprofile Meeting Application - Adding Persistance
 
 ## Overview
 This lab takes you through how to update the MicroProfile Meeting application to add persistence.
 
 At the time this lab was written MicroProfile had not defined a persistence mechanism. This is not because MicroProfile does not view persistence as important, but indicates the many equally valid choices that could be made for persistence in microservices. In this lab, Cloudant is used but there are other equally valid options like JPA, MongoDB, or Cassandra.
+
+Adapted from the blog post: [Writing a simple MicroProfile application: Adding persistence](https://developer.ibm.com/wasdev/docs/writing-simple-microprofile-application-2-adding-persistence/)
 
 ## Prerequisites
  * Completed [Part 1: MicroProfile Meeting Application](https://github.com/IBM/microprofile-meeting)
