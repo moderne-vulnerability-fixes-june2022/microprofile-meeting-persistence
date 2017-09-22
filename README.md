@@ -1,4 +1,4 @@
-# Part 2: Microprofile Meeting Application - Adding Persistance
+# Part 2: MicroProfile Meeting Application - Adding Persistance
 
 ## Overview
 This lab takes you through how to update the MicroProfile Meeting application to add persistence.
