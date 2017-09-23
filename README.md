@@ -15,7 +15,7 @@ Adapted from the blog post: [Writing a simple MicroProfile application: Adding p
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
    3. Search for **IBM Websphere Application Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
- * [Bluemix Account](bluemix.net)
+ * [Bluemix Account](https://www.bluemix.net)
  * [Bluemix CLI](https://clis.ng.bluemix.net/ui/home.html)
  
 ## Steps
@@ -39,6 +39,8 @@ $    git clone https://github.com/IBM/microprofile-meeting-persistance.git
 8. The meetings project is automatically created in the Project Explorer view.
   
 ### Step 2. Deploy MongoDB Instance in Bluemix
+1. Log in to your [Bluemix Account](https://www.bluemix.net)
+2. Deploy a [Compose for MongoDB](https://console.bluemix.net/catalog/services/compose-for-mongodb) instance.
   
 ### Step 3. Update application to compile against MongoDB API
 To start writing code, the Maven pom.xml needs to be updated to indicate the dependency on MongoDB:
