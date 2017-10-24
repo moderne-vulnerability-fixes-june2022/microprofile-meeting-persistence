@@ -1,4 +1,4 @@
-# Part 2: MicroProfile Meeting Application - Adding Persistance
+# Part 2: MicroProfile Meeting Application - Adding Persistence
 
 ## Overview
 This lab takes you through how to update the MicroProfile Meeting application to add persistence.
@@ -23,13 +23,13 @@ Adapted from the blog post: [Writing a simple MicroProfile application: Adding p
 Run the following commands:
   
 ```
-$    git clone https://github.com/IBM/microprofile-meeting-persistance.git
+$    git clone https://github.com/IBM/microprofile-meeting-persistence.git
 ```
 
 #### In Eclipse, import the project as an existing project.
 1. In Eclipse, switch to the Git perspective.
 2. Click **Clone a Git repository** from the Git Repositories view.
-3. Enter URI `https://github.com/IBM/microprofile-meeting-persistance.git`
+3. Enter URI `https://github.com/IBM/microprofile-meeting-persistence.git`
 4. Click **Next**, then click **Next** again accepting the defaults.
 5. From the **Initial branch** drop-down list, click **master**.
 6. Select **Import all existing Eclipse projects after clone finishes**, then click **Finish**.
