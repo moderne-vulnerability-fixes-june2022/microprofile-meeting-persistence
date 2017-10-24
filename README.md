@@ -10,10 +10,10 @@ Adapted from the blog post: [Writing a simple MicroProfile application: Adding p
 ## Prerequisites
  * Completed [Part 1: MicroProfile Meeting Application](https://github.com/IBM/microprofile-meeting)
  * [Eclipse Java EE IDE for Web Developers](http://www.eclipse.org/downloads/)
- * IBM Websphere Application Liberty Developer Tools (WDT)
+ * IBM Liberty Developer Tools (WDT)
    1. Start Eclipse
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
-   3. Search for **IBM Websphere Application Liberty Developer Tools**, and click **Install** with the defaults configuration selected
+   3. Search for **IBM Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
  
 ## Steps
@@ -232,7 +232,7 @@ DBObject obj = MeetingsUtil.meetingAsMongo(meeting,  existing);
 coll.save(obj);
 ```
 
-8. Find and update the `ge`t method:
+8. Find and update the `get` method:
 * Remove the method body from the `get` method (this will be replaced to fetch from the database):
 ```java
 public JsonObject get(String id) {
@@ -283,16 +283,10 @@ The server configuration is part of the project so first let’s configure that:
 
 1. Open the `server.xml` from **src > main > liberty > config > server.xml**.
 
-2. There are several lines commented out. These need to be uncommented and then modified. The following lines should have the surrounding comment markers removed:
+2. Add `mongodb-2.0` as a new feature. It should look like this:
 ```java
 <featureManager>
-    <feature></feature>
-</featureManager>
-```
-
-3. Between the open and close feature tag add `mongodb-2.0`. It should look like this:
-```java
-<featureManager>
+    <feature>microProfile-1.0</feature>
     <feature>mongodb-2.0</feature>
 </featureManager>
 ```
@@ -357,7 +351,7 @@ The Maven POM needs to be updated to do a few things: It needs to copy the Mongo
 </executions>
 ```
 
-This is copying server snippets from dependencies into the server configuration directory. We are going to add to it instructions to download the `mongo-java-driver`, copy it to the `usr/shared/resources` folder, and strip the version off the JAR file name. This last part means we don’t have to remember to update the `server.xm` every time the dependency version is upgraded.
+This is copying server snippets from dependencies into the server configuration directory. We are going to add to it instructions to download the `mongo-java-driver`, copy it to the `usr/shared/resources` folder, and strip the version off the JAR file name. This last part means we don’t have to remember to update the `server.xml` every time the dependency version is upgraded.
 
 2. To add these additional instructions, add the following lines after the `</execution>` closing tag:
 ```xml
@@ -394,7 +388,7 @@ The `server.xml` references the WAR by artifact name and version. The version is
 #### Copy the application to the `apps` folder
 The Maven POM deploys the application into the `dropins` folder of the Liberty server but this doesn’t allow a shared library to be used. So, instead, the application needs to be copied to the `apps` folder:
 
-1. Search in the `pom.xml` for the string ‘dropins’, you should see this:
+1. Search in the `pom.xml` for the string `dropins`, you should see this:
 ```xml
 <goals>
     <goal>copy-resources</goal>
@@ -444,6 +438,7 @@ The `mongodb-2.0` feature is not in the Liberty server installations that are st
 3. Save the `pom.xml`.
   
 ### Step 8. Running the application
+#### Eclipse WDT
 There are two ways to get the application running from within WDT:
 
  * The first is to use Maven to build and run the project:
@@ -455,6 +450,29 @@ There are two ways to get the application running from within WDT:
  * The second way is to right-click the `meetings` project and select **Run As… > Run on Server** but there are a few things to note if you do this. WDT doesn’t automatically add the MicroProfile features as you would expect so you need to manually add those. Also, any changes to the configuration in `src/main/liberty/config` won’t be picked up unless you add an include.
 
 Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
+
+#### Bluemix
+Since you have completed the previous lab, you can redeploy your app with these changes.
+
+1. Login to Bluemix
+```
+cf login
+```
+
+2. Push your app to Bluemix (specifying no start)
+```
+cf push --no-start <yourappname> -p wlp/usr/servers/meetingsServer
+```
+
+3. While your app is deploying, create a [Compose MongoDB](https://console.bluemix.net/catalog/services/compose-for-mongodb) instance on Bluemix. Name the service instance `mongo/sampledb`, leave all other default configurations. Click **Create**.
+
+4. From your Bluemix Dashboard, find your deployed app and click on it.
+
+5. On the left-hand side, click **Connections**. Then click **Connect existing**.
+
+6. Find your `mongo/sampledb` and click on it. It will prompt you to restage the app, click **Restage**.
+
+7. Once the app finishes restaging, you can revisit the route/url. Be sure to add `/meetings` to the end of the route to hit the home page of your app.
 
 ## Next Steps
 Part 3: [MicroProfile Application - Using Java EE Concurrency](https://github.com/IBM/microprofile-meeting-concurrency)
