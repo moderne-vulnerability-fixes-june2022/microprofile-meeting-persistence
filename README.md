@@ -9,12 +9,14 @@ Adapted from the blog post: [Writing a simple MicroProfile application: Adding p
 
 ## Prerequisites
  * Completed [Part 1: MicroProfile Meeting Application](https://github.com/IBM/microprofile-meeting)
- * [Eclipse Java EE IDE for Web Developers](http://www.eclipse.org/downloads/)
+ 
+ * [Eclipse IDE for Web Developers](http://www.eclipse.org/downloads/): Run the installer and select Eclipse IDE for Java EE developers. **Note:** these steps were tested on the 2018-09 version of Eclipse running on Linux and Liberty Developer Tools 18.0.0.3.  **Note:** If you encounter an error message like  `Could not initialize class org.codehaus.plexus.archiver.jar.JarArchiver` please see the Troubleshooting section.
  * IBM Liberty Developer Tools (WDT)
    1. Start Eclipse
    2. Launch the Eclipse Marketplace: **Help** -> **Eclipse Marketplace**
    3. Search for **IBM Liberty Developer Tools**, and click **Install** with the defaults configuration selected
  * [Git](https://git-scm.com/downloads)
+ * Install the [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html#overview)
  
 ## Steps
 ### Step 1. Check out the source code
@@ -286,7 +288,7 @@ The server configuration is part of the project so first let’s configure that:
 2. Add `mongodb-2.0` as a new feature. It should look like this:
 ```java
 <featureManager>
-    <feature>microProfile-1.0</feature>
+    <feature>microProfile-2.0</feature>
     <feature>mongodb-2.0</feature>
 </featureManager>
 ```
@@ -451,22 +453,22 @@ There are two ways to get the application running from within WDT:
 
 Find out more about [MicroProfile and WebSphere Liberty](https://developer.ibm.com/wasdev/docs/microprofile/).
 
-#### Bluemix
-Since you have completed the previous lab, you can redeploy your app with these changes.
+#### IBM Cloud
+You can run your application on IBM Cloud using Cloud Foundry.
 
-1. Login to Bluemix
+1. Login to your IBM cloud account
 ```
-cf login
+ibmcloud cf login
+```
+ 
+2. Push your application to IBM Cloud (specifying no start)
+```
+$ ibmcloud cf push --no-start <yourappname> -p wlp/usr/servers/meetingsServer
 ```
 
-2. Push your app to Bluemix (specifying no start)
-```
-cf push --no-start <yourappname> -p wlp/usr/servers/meetingsServer
-```
+3. While your app is deploying, create a [Compose MongoDB](https://console.bluemix.net/catalog/services/compose-for-mongodb) instance on IBM Cloud. Name the service instance `mongo/sampledb`, leave all other default configurations. Click **Create**.
 
-3. While your app is deploying, create a [Compose MongoDB](https://console.bluemix.net/catalog/services/compose-for-mongodb) instance on Bluemix. Name the service instance `mongo/sampledb`, leave all other default configurations. Click **Create**.
-
-4. From your Bluemix Dashboard, find your deployed app and click on it.
+4. From your IBM Cloud Dashboard, find your deployed app and click on it.
 
 5. On the left-hand side, click **Connections**. Then click **Connect existing**.
 
